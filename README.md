@@ -1,6 +1,6 @@
 # Aviation ETL Project
 
-# For this project, I created a pipeline for data exported from The Bureau of Transportation Statistics. There were three aviation datasets in scope: Finances, Carrier Information, and On-Time Flights. Each dataset contained 1000 to 7 million rows of data in an excel format.
+# For this project, I created an ETL pipeline for data exported from The Bureau of Transportation Statistics. There were three aviation datasets in scope: Finances, Carrier Information, and On-Time Flights. Each dataset contained 1000 to 7 million rows of data in an excel format.
 
 ![image](https://user-images.githubusercontent.com/80182167/172061813-5f932c50-940a-4cf3-872d-bc5646d9cfc5.png)
 
