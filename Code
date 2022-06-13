@@ -17,20 +17,15 @@ import zipfile
 with zipfile.ZipFile("C:/Users/ckfoy/Downloads/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_2021_12.zip",
                      "r") as zip_ref:
     zip_ref.extractall("C:/Users/ckfoy/OneDrive/Documents/MSDE_696_Practicum_II/Data")
-
-
 # Extract zip fies from my downloads folder to my new Data folder
 with zipfile.ZipFile("C:/Users/ckfoy/Downloads/DL_SelectFields (11).zip","r") as zip_ref:
     zip_ref.extractall("C:/Users/ckfoy/OneDrive/Documents/MSDE_696_Practicum_II/Data/")
-
 
 # # Finance Dataset
 import os
 import pandas as pd
 import glob
-
 # SPACE RESTRICTIONS https://www.geeksforgeeks.org/how-to-merge-multiple-csv-files-into-a-single-pandas-dataframe/
-
 # merging the files
 joined_files = os.path.join("C:/Users/ckfoy/OneDrive/Documents/MSDE_696_Practicum_II/Data/", "T_F41*.csv")
 
@@ -40,58 +35,45 @@ joined_list = glob.glob(joined_files)
 # The files are joined
 finance = pd.concat(map(pd.read_csv, joined_list), ignore_index=True)
 print(finance)
-
 finance.head()
-
 finance.info()
 
 # delete column PF_SHARES_NUM
-
 finance.drop('PF_SHARES_NUM', inplace=True, axis=1)
-
 finance.info()
 
 # check how many values we have left if all rows with missing values are dropped
 finance2 = finance.dropna()
 finance2.info()
-
 # I think that's still plenty to work with so I'm going to keep this method of handling missing values
 finance2.to_csv('financials.csv')
 
 # # Carrier Dataset
-
 # merging the files
 joined_files = os.path.join("C:/Users/ckfoy/OneDrive/Documents/MSDE_696_Practicum_II/Data/", "T_T*.csv")
 
 # A list of all joined files is returned
 joined_list = glob.glob(joined_files)
-
 # The files are joined
 T = pd.concat(map(pd.read_csv, joined_list), ignore_index=True)
 print(T)
-
 T.head()
-
 # look for missing values
 T.info()
 
 # There are only 7 columns missing 13 values so I will remove all rows that are missing data
 T2 = T.dropna()
 T2.info()
-
 T2.to_csv('carrier_info.csv', index=False)
 
 
 # # On Time Dataset
-
 # SPACE RESTRICTIONS https://www.geeksforgeeks.org/how-to-merge-multiple-csv-files-into-a-single-pandas-dataframe/
-
 # merging the files
 joined_files = os.path.join("C:/Users/ckfoy/OneDrive/Documents/MSDE_696_Practicum_II/Data/", "On_Time*.csv")
 
 # A list of all joined files is returned
 joined_list = glob.glob(joined_files)
-
 # The files are joined
 df = pd.concat(map(pd.read_csv, joined_list), ignore_index=True)
 print(df)
@@ -101,7 +83,6 @@ print(df)
 # merging the files
 joined_files = os.path.join("C:/Users/ckfoy/OneDrive/Documents/MSDE_696_Practicum_II/Data/",
                             "On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)_2017*.csv")
-
 # A list of all joined files is returned
 joined_list = glob.glob(joined_files)
 
@@ -114,22 +95,16 @@ pd.set_option('display.max_columns', None)
 
 # look for missing values
 Time_2017.describe()
-
 # displays missing value counts, pandas didn't want to show all columns without setting these parameters
 Time_2017.info(verbose=True, null_counts=True)
 
 # drop columns that are missing 50% of their values or more
 Time_2017_2 = Time_2017.dropna(thresh=len(Time_2017)*.5, axis='columns')
-
 Time_2017_2.info(verbose=True, null_counts=True)
-
 # remove rows with missing values
 Time_2017_3 = Time_2017_2.dropna()
-
 Time_2017_3.info(verbose=True, null_counts=True)
-
 Time_2017_3.to_csv('on_time_2017.csv', index=False)
-
 
 # Now I'll repeat for years 2018-2021. I'll need to be sure to double check that the same columns are excluded so when they are combined in the database, everything matches up
 
@@ -138,24 +113,17 @@ joined_files = os.path.join("C:/Users/ckfoy/OneDrive/Documents/MSDE_696_Practicu
                             "On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)_2018*.csv")
 # A list of all joined files is returned
 joined_list = glob.glob(joined_files)
-
 # The files are joined
 Time_2018 = pd.concat(map(pd.read_csv, joined_list), ignore_index=True)
 Time_2018.head()
-
 Time_2018.info(verbose=True, null_counts=True)
 
 # drop columns that are missing 50% of their values or more
 Time_2018_2 = Time_2018.dropna(thresh=len(Time_2018)*.5, axis='columns')
-
 Time_2018_2.info(verbose=True, null_counts=True)
-
 Time_2018_3 = Time_2018_2.dropna()
-
 Time_2018_3.info()
-
 Time_2018_3.to_csv('on_time_2018.csv', index=False)
-
 
 # ## 2019 Data
 
@@ -164,18 +132,12 @@ joined_files = os.path.join("C:/Users/ckfoy/OneDrive/Documents/MSDE_696_Practicu
                             "On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)_2019*.csv")
 # A list of all joined files is returned
 joined_list = glob.glob(joined_files)
-
 # The files are joined
 Time_2019 = pd.concat(map(pd.read_csv, joined_list), ignore_index=True)
-
 Time_2019_2 = Time_2019.dropna(thresh=len(Time_2019)*.5, axis='columns')
-
 Time_2019_3 = Time_2019_2.dropna()
-
 Time_2019_3.info()
-
 Time_2019_3.to_csv('on_time_2019.csv', index=False)
-
 
 # ## 2020 Data
 
@@ -184,49 +146,31 @@ joined_files = os.path.join("C:/Users/ckfoy/OneDrive/Documents/MSDE_696_Practicu
                             "On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)_2020*.csv")
 # A list of all joined files is returned
 joined_list = glob.glob(joined_files)
-
 # The files are joined
 Time_2020 = pd.concat(map(pd.read_csv, joined_list), ignore_index=True)
-
 Time_2020_2 = Time_2020.dropna(thresh=len(Time_2020)*.5, axis='columns')
-
 Time_2020_3 = Time_2020_2.dropna()
-
 Time_2020_3.info()
-
 Time_2020_3.to_csv('on_time_2020.csv', index=False)
 
-
 # ## 2021 Data
-
 
 # merging the files
 joined_files = os.path.join("C:/Users/ckfoy/OneDrive/Documents/MSDE_696_Practicum_II/Data/",
                             "On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)_2021*.csv")
 # A list of all joined files is returned
 joined_list = glob.glob(joined_files)
-
 # The files are joined
 Time_2021 = pd.concat(map(pd.read_csv, joined_list), ignore_index=True)
-
 Time_2021_2 = Time_2021.dropna(thresh=len(Time_2021)*.5, axis='columns')
-
 Time_2021_3 = Time_2021_2.dropna()
-
 Time_2021_3.info()
-
 Time_2021_3.to_csv('on_time_2021.csv', index=False)
-
 
 df = pd.read_csv('C:/Users/ckfoy/OneDrive/Documents/MSDE_696_Practicum_II/Data/On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)_2021_1.csv'
                  , index_col=0)
-
-df.head()
-
 pd.set_option('display.max_columns', None)
-
 df.head()
-
 
 # Break down csv files for years 2018 and 2019 because files over 2 GB can't be uploaded to Postgres
 # https://www.geeksforgeeks.org/how-to-create-multiple-csv-files-from-existing-csv-file-using-pandas/amp/
@@ -239,26 +183,20 @@ size = 3535908
 for i in range(k):
     df = file[size*i:size*(i+1)]
     df.to_csv(f'on_time_2018_{i+1}.csv', index=False)
-    
 df_1 = pd.read_csv("on_time_2018_1.csv")
 df_1.head()
-
 df_2 = pd.read_csv("on_time_2018_2.csv")
 df_2.head()
 
-
 # 2019 Data
 file = pd.read_csv('C:/Users/ckfoy/OneDrive/Documents/MSDE_696_Practicum_II/on_time_2019.csv')
-
 # number of csv files with row size
 k = 2
 size = 3634116
 for i in range(k):
     df = file[size*i:size*(i+1)]
     df.to_csv(f'on_time_2019_{i+1}.csv', index=False)
-    
 df_3 = pd.read_csv("on_time_2019_1.csv")
 df_3.head()
-
 df_4 = pd.read_csv("on_time_2019_2.csv")
 df_4.head()
